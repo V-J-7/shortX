@@ -35,7 +35,8 @@ public class AuthController {
             userService.addUser(signupDTO.getEmail(), signupDTO.getPassword());
             return ResponseEntity.ok("Registered Successfully");
         
-        } catch (DataIntegrityViolationException e) {
+        } 
+        catch (DataIntegrityViolationException e) {
             return ResponseEntity.status(401).body("Already Registered");
         }
     }

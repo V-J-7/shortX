@@ -13,6 +13,7 @@ public class LoginService {
         this.userAuthService = userAuthService;
     }
     public boolean authenticate(String email, String password) {
+        email = email.toLowerCase().trim();
         User user=userRepository.findByEmail(email);
         if (user==null)return false;
         return userAuthService.checkPassword(password,user.getPassword());
