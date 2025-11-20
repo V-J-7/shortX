@@ -1,1 +1,1 @@
-export const link = "https://short-x-five.vercel.app"
+export const link = "https://shortx-i77j.onrender.com"
