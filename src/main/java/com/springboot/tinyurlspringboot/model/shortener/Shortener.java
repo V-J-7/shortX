@@ -35,16 +35,18 @@ public class Shortener {
     public Shortener() {
 
     }
-    void setOriginal(String original) {
+
+    public void setOriginal(String original) {
         this.original = original;
     }
-    void setShort(String shortUrl) {
+    public void setShort(String shortUrl) {
         this.shortUrl = this.shortUrl;
     }
-    void setUser(User user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
+    public Long getId() { return id; }
     public String getOriginal() {
         return original;
     }
