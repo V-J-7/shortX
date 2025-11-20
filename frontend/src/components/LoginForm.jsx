@@ -18,7 +18,7 @@ function LoginForm({ onToggle }) {
         e.preventDefault()
         setIsLoading(true);
         try {
-            const res = await fetch(`${link}auth/login`, {
+            const res = await fetch(`${link}/auth/login`, {
                 method: "POST",
                 headers: {
                     "Content-type": "application/json"
