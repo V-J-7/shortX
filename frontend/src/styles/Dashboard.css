@@ -35,7 +35,7 @@
     letter-spacing: 1px;
 }
 
-.secondary:hover{
+.secondary:hover {
     color: var(--primary);
 }
 
@@ -103,6 +103,164 @@ h1 {
     text-transform: uppercase;
     cursor: pointer;
     transition: all 0.3s ease;
+}
+
+.delete-btn:hover {
+    box-shadow: 0 0 15px rgba(255, 0, 110, 0.5);
+    transform: scale(1.05);
+}
+
+/* Empty Message */
+p {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-top: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.invalid-url {
+    color: var(--secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Shorten URL Form */
+.shorten-form {
+    max-width: 600px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(26, 31, 58, 0.9) 0%, rgba(26, 31, 58, 0.7) 100%);
+    border: 2px solid var(--primary);
+    border-radius: 4px;
+    box-shadow: 0 0 30px rgba(0, 217, 255, 0.2);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.shorten-form label {
+    display: block;
+    margin-bottom: 0.8rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.85em;
+}
+
+/* Input Fields */
+.input-field {
+    width: 100%;
+    padding: 1rem;
+    font-size: 0.95rem;
+    font-family: 'JetBrains Mono', monospace;
+    background-color: rgba(26, 31, 58, 0.8);
+    color: var(--text-primary);
+    border: 1px solid rgba(0, 217, 255, 0.3);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.input-field::placeholder {
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.input-field:focus {
+    border-color: var(--primary);
+    outline: none;
+    background-color: rgba(26, 31, 58, 1);
+}
+
+/* Shorten Button */
+.shorten-btn {
+    width: 100%;
+    padding: 1rem;
+    background-color: transparent;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    border-radius: 4px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.shorten-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--primary);
+    z-index: -1;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.shorten-btn:hover {
+    color: var(--secondary);
+    box-shadow: 0 0 25px rgba(0, 217, 255, 0.6);
+}
+
+.shorten-btn:hover::before {
+    left: 0;
+}
+
+/* Search Field */
+label {
+    color: var(--text-secondary);
+}
+
+/* QR Modal */
+.qr-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.qr-popup {
+    background: linear-gradient(135deg, rgba(26, 31, 58, 0.95) 0%, rgba(26, 31, 58, 0.85) 100%);
+    border: 2px solid var(--primary);
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(0, 217, 255, 0.4);
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.qr-text {
+    margin-top: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 10px;
+    color: white;
 }
 
 .delete-btn:hover {
@@ -340,6 +498,7 @@ label {
     color: #444;
     font-weight: 500;
     background-color: #f2f2f2;
+    display:flex;
     padding: 8px 14px;
     border-radius: 20px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -405,5 +564,254 @@ label {
 
     .qr-text {
         font-size: 0.95rem;
+    }
+}
+
+/* ===========================
+   TABLET & MEDIUM SCREENS
+   =========================== */
+@media (max-width: 1024px) {
+    .dashboard-container {
+        padding: 1.5rem;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    .url-table th,
+    .url-table td {
+        padding: 1rem;
+        font-size: 0.85rem;
+    }
+    
+    .shorten-form {
+        max-width: 100%;
+        padding: 1.5rem;
+    }
+}
+
+/* ===========================
+   MOBILE - iPad & Tablets
+   =========================== */
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding: 1rem;
+    }
+    
+    .user-info {
+        position: static;
+        margin-bottom: 1.5rem;
+        width: 100%;
+        text-align: center;
+        padding: 1rem;
+    }
+    
+    h1 {
+        font-size: 1.5rem;
+        margin: 1.5rem 0 1rem 0;
+        text-align: center;
+    }
+    
+    .url-table {
+        font-size: 0.75rem;
+        margin: 1.5rem 0;
+        display: block;
+        overflow-x: auto;
+    }
+    
+    .url-table th,
+    .url-table td {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.75rem;
+    }
+    
+    .url-table th {
+        font-size: 0.7rem;
+    }
+    
+    .shorten-form {
+        max-width: 100%;
+        margin: 1.5rem 0;
+        padding: 1.5rem;
+    }
+    
+    .form-group {
+        margin-bottom: 1rem;
+    }
+    
+    .shorten-form label {
+        font-size: 0.8em;
+        margin-bottom: 0.6rem;
+    }
+    
+    .input-field {
+        padding: 0.85rem;
+        font-size: 1rem;
+    }
+    
+    .shorten-btn {
+        padding: 0.85rem;
+        font-size: 0.9rem;
+    }
+    
+    .delete-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.7em;
+    }
+    
+    .qr-popup {
+        width: 90%;
+        max-width: 400px;
+        padding: 1.5rem;
+    }
+    
+    .qr-text {
+        letter-spacing: 4px;
+        font-size: 0.9rem;
+    }
+    
+    p {
+        font-size: 1rem;
+    }
+}
+
+/* ===========================
+   MOBILE - iPhone Size
+   =========================== */
+@media (max-width: 480px) {
+    .dashboard-container {
+        padding: 0.75rem;
+    }
+    
+    .user-info {
+        margin-bottom: 1rem;
+        padding: 0.75rem;
+        font-size: 0.85rem;
+    }
+    
+    .user-info div {
+        margin-bottom: 0.5rem;
+    }
+    
+    h1 {
+        font-size: 1.3rem;
+        margin: 1rem 0 0.75rem 0;
+        text-align: center;
+    }
+    
+    .url-table {
+        font-size: 0.7rem;
+        margin: 1rem 0;
+        overflow-x: auto;
+        display: block;
+    }
+    
+    .url-table th,
+    .url-table td {
+        padding: 0.6rem 0.4rem;
+        font-size: 0.7rem;
+    }
+    
+    .url-table a {
+        word-break: break-word;
+    }
+    
+    .shorten-form {
+        margin: 1rem 0;
+        padding: 1rem;
+    }
+    
+    .form-group {
+        margin-bottom: 0.75rem;
+    }
+    
+    .shorten-form label {
+        font-size: 0.75em;
+        margin-bottom: 0.5rem;
+    }
+    
+    .input-field {
+        padding: 0.75rem;
+        font-size: 16px;
+    }
+    
+    .shorten-btn {
+        padding: 0.75rem;
+        font-size: 0.85rem;
+    }
+    
+    .delete-btn {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.65em;
+    }
+    
+    .qr-overlay {
+        padding: 1rem;
+    }
+    
+    .qr-popup {
+        width: 95%;
+        padding: 1rem;
+    }
+    
+    .qr-text {
+        letter-spacing: 2px;
+        font-size: 0.8rem;
+        margin-top: 1rem;
+    }
+    
+    p {
+        font-size: 0.9rem;
+        margin-top: 1.5rem;
+    }
+}
+
+/* ===========================
+   EXTRA SMALL - iPhone SE
+   =========================== */
+@media (max-width: 375px) {
+    .dashboard-container {
+        padding: 0.5rem;
+    }
+    
+    .user-info {
+        margin-bottom: 0.75rem;
+        padding: 0.5rem;
+        font-size: 0.75rem;
+    }
+    
+    h1 {
+        font-size: 1.1rem;
+        margin: 0.75rem 0 0.5rem 0;
+    }
+    
+    .url-table {
+        font-size: 0.65rem;
+        margin: 0.75rem 0;
+    }
+    
+    .url-table th,
+    .url-table td {
+        padding: 0.5rem 0.3rem;
+        font-size: 0.65rem;
+    }
+    
+    .shorten-form {
+        margin: 0.75rem 0;
+        padding: 0.75rem;
+    }
+    
+    .input-field {
+        padding: 0.65rem;
+    }
+    
+    .shorten-btn {
+        padding: 0.65rem;
+        font-size: 0.8rem;
+    }
+    
+    .qr-popup {
+        padding: 0.75rem;
     }
 }
