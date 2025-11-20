@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name="users")
 public class User {
-    @Column(name="email",nullable=false)
+    @Column(name="email",nullable=false, unique = true)
     String email;
 
     @Column(name="password",nullable=false)
