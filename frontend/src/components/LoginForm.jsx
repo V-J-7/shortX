@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff } from 'lucide-react'
 import { EmailContext } from "../EmailContext.js";
 import '../styles/Authentication.css';
+import {link} from "../BackendLink.jsx"
 
 function LoginForm({ onToggle }) {
     const [email, setEmail] = useState('');
@@ -17,7 +18,7 @@ function LoginForm({ onToggle }) {
         e.preventDefault()
         setIsLoading(true);
         try {
-            const res = await fetch("http://localhost:8080/auth/login", {
+            const res = await fetch(`${link}auth/login`, {
                 method: "POST",
                 headers: {
                     "Content-type": "application/json"

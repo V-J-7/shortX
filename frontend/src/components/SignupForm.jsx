@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Eye, EyeOff } from 'lucide-react'
 import PasswordValidator from './PasswordValidator.jsx'
 import '../styles/Authentication.css'
+import {link} from "../BackendLink.jsx"
 
 function validEmail(email) {
     const regex = /^[a-zA-Z0-9_%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -31,7 +32,7 @@ const SignupForm = ({ onToggle }) => {
         }
 
         try {
-            const res = await fetch("http://localhost:8080/auth/signup", {
+            const res = await fetch(`${link}/auth/signup`, {
                 method: "POST",
                 headers: {
                     "Content-type": "application/json"

@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { EmailContext } from "../EmailContext.js";
+import {link} from "../BackendLink.jsx"
 
 function ShortenURLs({ onShorten }) {
     const { email } = useContext(EmailContext);
@@ -12,7 +13,7 @@ function ShortenURLs({ onShorten }) {
         e.preventDefault();
         setIsLoading(true);
         try {
-            const res = await fetch("http://localhost:8080/shorten", {
+            const res = await fetch(`${link}/shorten`, {
                 method: "POST",
                 headers: {
                     "Content-type": "application/json"
@@ -30,7 +31,6 @@ function ShortenURLs({ onShorten }) {
             setIsLoading(false);
         }
     }
-    const host = "http://localhost:8080";
     return (
         <form onSubmit={sendURL} className="shorten-form">
             <div className="form-group">
@@ -68,7 +68,7 @@ function ShortenURLs({ onShorten }) {
                         borderRadius: '4px',
                         marginTop: '0.5rem'
                     }}>
-                        <a href={`${host}/${shortURL}`} target="_blank" rel="noopener noreferrer">{"http://localhost:8080"}/{shortURL}</a>
+                        <a href={`${link}/${shortURL}`} target="_blank" rel="noopener noreferrer">{link}/{shortURL}</a>
                     </div>
                 </div>
             )}
