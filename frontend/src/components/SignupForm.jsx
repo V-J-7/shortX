@@ -1,76 +1,103 @@
-import React , {useState} from 'react'
+import { useState } from 'react'
+import { Eye, EyeOff } from 'lucide-react'
+import PasswordValidator from './PasswordValidator.jsx'
 import '../styles/Authentication.css'
+
 function validEmail(email) {
     const regex = /^[a-zA-Z0-9_%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return regex.test(email);
 }
 
-function validPassword(password) {
-    if (!/[a-z]/.test(password)) {
-        return "Password should have at least one lowercase character";
-    }
-    if (!/[A-Z]/.test(password)) {
-        return "Password should have at least one uppercase character";
-    }
-    if (!/\d/.test(password)) {
-        return "Password should have at least one digit";
-    }
-    if (password.length < 6) {
-        return "Password should have at least 6 characters";
-    }
-    return "";
-}
-const SignupForm=()=>{
-    const [email,setEmail]=useState('');
-    const [password,setPassword]=useState('');
-    const [emailMessage,setEmailMessage]=useState('');
-    const [passwordMessage,setPasswordMessage]=useState('');
-    const [signupMessage,setSignupMessage]=useState('');
-    const handleSignup=async(e)=>{
+
+const SignupForm = ({ onToggle }) => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [emailMessage, setEmailMessage] = useState('');
+    const [signupMessage, setSignupMessage] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleSignup = async (e) => {
         e.preventDefault()
-        if (!validEmail(email)){
+        setIsLoading(true);
+
+        if (!validEmail(email)) {
             setEmailMessage("Invalid Email");
+            setIsLoading(false);
             return;
         }
-        else{
+        else {
             setEmailMessage('');
         }
-        const passwordError=validPassword(password);
-        if (passwordError!==""){
-            setPasswordMessage(passwordError)
-            return;
+
+        try {
+            const res = await fetch("http://localhost:8080/auth/signup", {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({ email, password })
+            });
+            const message = await res.text()
+            setSignupMessage(message);
+            setPassword('')
+            setEmail('')
         }
-        else{
-            setPasswordMessage('');
+        catch (err) {
+            console.log(err)
+            setSignupMessage("Connection error. Please try again.");
         }
-        const res=await fetch("http://localhost:8080/auth/signup",{
-            method:"POST",
-            headers:{
-                "Content-type":"application/json"
-            },
-            body:JSON.stringify({email,password})
-        });
-        const message=await res.text()
-        setSignupMessage(message);
-        setPassword('')
-        setEmail('')
+        finally {
+            setIsLoading(false);
+        }
     }
-    return(
-        <>
-            <h1>Sign up</h1>
-            <form onSubmit={handleSignup} className="auth-form">
-                <label>
-                    Email:<input type="email" value={email} onChange={(e)=>setEmail(e.target.value)} placeholder="Enter your email"></input>
-                </label>
-                <p className="error">{emailMessage}</p>
-                <label>
-                    Password:<input type="password" value={password} onChange={(e)=>setPassword(e.target.value)} placeholder="Enter your password" autoComplete="new-password"></input>
-                </label>
-                <p className="error">{passwordMessage}</p>
-                <button type="submit">Sign up</button>
-            </form>
-            {signupMessage && <p className="success">{signupMessage}</p>}
-        </>
+
+    return (
+        <form onSubmit={handleSignup} className="auth-form">
+            <h1>Sign Up</h1>
+            <label>Email</label>
+            <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="your@email.com"
+                required
+            />
+            {emailMessage && <p className="error">{emailMessage}</p>}
+            
+            <label>Password</label>
+            <div className="password-input-wrapper">
+                <input
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="••••••••"
+                    autoComplete="new-password"
+                    required
+                />
+                {password && (
+                    <button
+                        type="button"
+                        className="password-toggle"
+                        onClick={() => setShowPassword(!showPassword)}
+                        aria-label="Toggle password visibility"
+                    >
+                        {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
+                    </button>
+                )}
+            </div>
+            
+            {password && <PasswordValidator password={password} />}
+            
+            <button type="submit" disabled={isLoading}>
+                {isLoading ? "Creating Account..." : "Sign Up"}
+            </button>
+            <p className="status-msg">{signupMessage}</p>
+
+            <div className="toggle-link">
+                Already have an account? <a onClick={onToggle}>Log in</a>
+            </div>
+        </form>
     )
 }
 

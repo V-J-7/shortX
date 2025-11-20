@@ -26,6 +26,6 @@ public class SHA256Encoder {
             ans.append(BASE.charAt((int)(shortenedSHA%62)));
             shortenedSHA=shortenedSHA/62;
         }
-        return "mini.to/"+ans.reverse();
+        return ans.reverse().toString();
     }
 }

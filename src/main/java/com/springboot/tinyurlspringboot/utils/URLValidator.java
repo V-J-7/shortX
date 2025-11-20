@@ -1,7 +1,6 @@
-package com.springboot.tinyurlspringboot;
+package com.springboot.tinyurlspringboot.utils;
 
 import java.net.URL;
-import java.net.MalformedURLException;
 
 public class URLValidator {
     public static String normalize(String url){

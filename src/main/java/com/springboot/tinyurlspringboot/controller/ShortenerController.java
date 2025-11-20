@@ -1,7 +1,7 @@
 package com.springboot.tinyurlspringboot.controller;
 
 import com.springboot.tinyurlspringboot.utils.SHA256Encoder;
-import com.springboot.tinyurlspringboot.URLValidator;
+import com.springboot.tinyurlspringboot.utils.URLValidator;
 import com.springboot.tinyurlspringboot.model.shortener.Shortener;
 import com.springboot.tinyurlspringboot.model.user.User;
 import com.springboot.tinyurlspringboot.repositories.ShortenerRepository;
@@ -25,9 +25,9 @@ public class ShortenerController {
     @PostMapping("/shorten")
     public ResponseEntity<String> shortener(@RequestBody Map<String,String> map) {
         String email = map.get("email");
-        String original=map.get("original");
-        original=URLValidator.normalize(original);
-        String shortURL="";
+        String original = map.get("original");
+        original = URLValidator.normalize(original);
+        String shortURL;
         String urlName=map.get("urlName");
         User user=userRepository.findByEmail(email);
         Shortener existing = shortenerRepository.findByOriginalAndUser(original,user);
