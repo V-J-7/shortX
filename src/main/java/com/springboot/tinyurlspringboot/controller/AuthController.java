@@ -25,13 +25,11 @@ public class AuthController {
     }
     @PostMapping("/signup")
     public ResponseEntity<String> signup(@RequestBody SignupDTO signupDTO) {
-    // 1. Keep this for good UX (fast fail)
         if (userService.userExists(signupDTO.getEmail())){
             return ResponseEntity.status(401).body("Already Registered");
         }
 
         try {
-            // 2. Try to save
             userService.addUser(signupDTO.getEmail(), signupDTO.getPassword());
             return ResponseEntity.ok("Registered Successfully");
         

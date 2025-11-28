@@ -40,7 +40,7 @@ public class Shortener {
         this.original = original;
     }
     public void setShort(String shortUrl) {
-        this.shortUrl = this.shortUrl;
+        this.shortUrl = shortUrl;
     }
     public void setUser(User user) {
         this.user = user;
