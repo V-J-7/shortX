@@ -83,19 +83,19 @@ function Dashboard() {
                                     <tr key={index}>
                                         <td>{s.urlName}</td>
                                         <td>
-                                            <a href={`${link}/${s.shortUrl}`} target="_blank" rel="noopener noreferrer">
-                                                {s.original.length > 40 ? s.original.slice(0, 40) + "..." : s.original}
+                                            <a href={`${link}/${s.shortURL}`} target="_blank" rel="noopener noreferrer">
+                                                {s.originalURL.length > 40 ? s.originalURL.slice(0, 40) + "..." : s.originalURL}
                                             </a>
                                         </td>
 
                                         <td>
-                                            <a href={`${link}/${s.shortUrl}`} target="_blank" rel="noopener noreferrer">
-                                                {link}/{s.shortUrl}
+                                            <a href={`${link}/${s.shortURL}`} target="_blank" rel="noopener noreferrer">
+                                                {link}/{s.shortURL}
                                             </a>
                                         </td>
                                         <td>
                                             <button onClick={() => {
-                                                setOriginalURL(s.original);
+                                                setOriginalURL(s.originalURL);
                                                 setShowQR(true)
                                             }}>QR Code</button>
                                         </td>
