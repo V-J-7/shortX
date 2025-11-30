@@ -28,7 +28,7 @@ public class DashboardController {
         String email=map.get("email");
         User user=userRepository.findByEmail(email);
         List<Shortener> list=shortenerRepository.findAllByUser(user);
-        List<ShortenerDTO> shorts=list.stream().map(s->new ShortenerDTO(s.getOriginal(),s.getShortUrl(),s.getUrlName())).toList();
+        List<ShortenerDTO> shorts=list.stream().map(s->new ShortenerDTO(s.getOriginal(),s.getShortUrl(),s.getUrlName(),s.getClicks())).toList();
         if (list.isEmpty())return ResponseEntity.noContent().build();
         return ResponseEntity.ok(shorts);
     }

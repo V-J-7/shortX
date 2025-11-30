@@ -74,6 +74,7 @@ function Dashboard() {
                                     <th>Original URL</th>
                                     <th>Short URL</th>
                                     <th>QR Code</th>
+                                    <th>Clicks</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -98,6 +99,9 @@ function Dashboard() {
                                                 setOriginalURL(s.originalURL);
                                                 setShowQR(true)
                                             }}>QR Code</button>
+                                        </td>
+                                        <td>
+                                            <p>{s.clicks}</p>;
                                         </td>
                                         <td><button className="delete-btn" onClick={() => removeURL(s.shortURL, email)}>Delete</button></td>
                                     </tr>

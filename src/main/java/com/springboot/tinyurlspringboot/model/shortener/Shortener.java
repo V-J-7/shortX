@@ -22,6 +22,9 @@ public class Shortener {
     @Column(name="short",nullable = false)
     private String shortUrl;
 
+    @Column(name="clicks")
+    private long clicks = 0;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id",nullable = false)
     private User user;
@@ -42,10 +45,16 @@ public class Shortener {
     public void setShort(String shortUrl) {
         this.shortUrl = shortUrl;
     }
+
+    public void setClicks(long clicks) {
+        this.clicks = clicks;
+    }
+
     public void setUser(User user) {
         this.user = user;
     }
 
+    public long getClicks() { return clicks; }
     public Long getId() { return id; }
     public String getOriginal() {
         return original;

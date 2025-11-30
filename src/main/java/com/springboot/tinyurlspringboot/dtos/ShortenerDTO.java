@@ -4,10 +4,13 @@ public class ShortenerDTO {
     String originalURL;
     String shortURL;
     String urlName;
-    public ShortenerDTO(String originalURL, String shortURL,String urlName) {
+    long clicks;
+
+    public ShortenerDTO(String originalURL, String shortURL, String urlName, long clicks) {
         this.originalURL = originalURL;
         this.shortURL = shortURL;
         this.urlName = urlName;
+        this.clicks = clicks;
     }
     public String getOriginalURL() {
         return originalURL;

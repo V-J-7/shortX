@@ -33,6 +33,8 @@ public class RedirectController {
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(URI.create(originalUrl));
 
+        shortener.setClicks(shortener.getClicks() + 1);
+        shortenerRepository.save(shortener);
         // 3. Return 302 Found status
         return new ResponseEntity<>(headers, HttpStatus.FOUND);
     }
