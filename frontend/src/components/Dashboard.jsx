@@ -101,7 +101,7 @@ function Dashboard() {
                                             }}>QR Code</button>
                                         </td>
                                         <td>
-                                            <p>{s.clicks}</p>;
+                                            <p>{s.clicks || 0}</p>
                                         </td>
                                         <td><button className="delete-btn" onClick={() => removeURL(s.shortURL, email)}>Delete</button></td>
                                     </tr>

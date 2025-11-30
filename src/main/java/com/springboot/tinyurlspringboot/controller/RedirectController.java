@@ -23,12 +23,12 @@ public class RedirectController {
     public ResponseEntity<Void> redirectUser(@PathVariable String shortCode) {
 
         Shortener shortener = shortenerRepository.findByShortUrl(shortCode);
-        String originalUrl = shortener.getOriginal();
 
-        if (originalUrl == null) {
+        if (shortener == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
+        String originalUrl = shortener.getOriginal();
         // 2. Create the "Location" header
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(URI.create(originalUrl));
