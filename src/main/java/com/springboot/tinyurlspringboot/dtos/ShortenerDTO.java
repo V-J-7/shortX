@@ -1,10 +1,10 @@
 package com.springboot.tinyurlspringboot.dtos;
 
 public class ShortenerDTO {
-    String originalURL;
-    String shortURL;
-    String urlName;
-    long clicks;
+    private String originalURL;
+    private String shortURL;
+    private String urlName;
+    private long clicks;
 
     public ShortenerDTO(String originalURL, String shortURL, String urlName, long clicks) {
         this.originalURL = originalURL;
@@ -18,7 +18,8 @@ public class ShortenerDTO {
     public String getShortURL() {
         return shortURL;
     }
-    public String geturlName() {
+    public String getUrlName() {
         return urlName;
     }
+    public long getClicks() { return clicks;}
 }
