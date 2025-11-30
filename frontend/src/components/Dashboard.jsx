@@ -4,6 +4,7 @@ import '../styles/Dashboard.css'
 import Header from "./Header.jsx";
 import ShortenURLs from "./ShortenURLs.jsx";
 import QRCode from 'react-qr-code'
+import { TrendingUp } from 'lucide-react'
 import User from "./User.jsx"
 import {link} from "../BackendLink.jsx"
 
@@ -13,7 +14,13 @@ function Dashboard() {
     const [shorteners, setShorteners] = useState([]);
     const [originalURL, setOriginalURL] = useState('');
     const [showQR, setShowQR] = useState(false);
+
     const { email } = useContext(EmailContext)
+    const handleLinkClick = () => {
+        setTimeout(() => {
+            fetchData();
+        }, 800); 
+    }
     const fetchData = async () => {
         const res = await fetch(`${link}/dashboard`, {
             method: "POST",
@@ -31,7 +38,7 @@ function Dashboard() {
         }
     }
     const removeURL=async(shortURL,email)=>{
-        const res=await fetch(`${link}/delete`,{
+        await fetch(`${link}/delete`,{
             method:"POST",
             headers:{
                 "Content-type":"application/json",
@@ -43,7 +50,15 @@ function Dashboard() {
     useEffect(() => {
         fetchData()
     }, [email])
-    const filteredShorteners = shorteners.filter(s => s.originalURL.toLowerCase().includes(searchTerm.toLowerCase()) || s.urlName.toLowerCase().includes(searchTerm.toLowerCase()));
+    // Inside Dashboard() ...
+
+    const filteredShorteners = [...shorteners]
+        .sort((a, b) => a.urlName.localeCompare(b.urlName)) 
+        .filter(s => 
+            s.originalURL.toLowerCase().includes(searchTerm.toLowerCase()) || 
+            s.urlName.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+
     return (
         <>
             <Header />
@@ -84,13 +99,13 @@ function Dashboard() {
                                     <tr key={index}>
                                         <td>{s.urlName}</td>
                                         <td>
-                                            <a href={`${link}/${s.shortURL}`} target="_blank" rel="noopener noreferrer">
+                                            <a href={s.originalURL} target="_blank" rel="noopener noreferrer">
                                                 {s.originalURL.length > 40 ? s.originalURL.slice(0, 40) + "..." : s.originalURL}
                                             </a>
                                         </td>
 
                                         <td>
-                                            <a href={`${link}/${s.shortURL}`} target="_blank" rel="noopener noreferrer">
+                                            <a href={`${link}/${s.shortURL}`} target="_blank" rel="noopener noreferrer" onClick={handleLinkClick}>
                                                 {link}/{s.shortURL}
                                             </a>
                                         </td>
@@ -101,7 +116,10 @@ function Dashboard() {
                                             }}>QR Code</button>
                                         </td>
                                         <td>
-                                            <p>{s.clicks || 0}</p>
+                                            <div className="clicks-badge" title={`${s.clicks || 0} clicks`}>
+                                                <TrendingUp size={14} className="clicks-icon" />
+                                                <span className="clicks-count">{s.clicks || 0}</span>
+                                            </div>
                                         </td>
                                         <td><button className="delete-btn" onClick={() => removeURL(s.shortURL, email)}>Delete</button></td>
                                     </tr>
