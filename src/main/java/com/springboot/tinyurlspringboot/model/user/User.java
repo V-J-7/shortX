@@ -14,7 +14,7 @@ public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="user_id",unique=true)
-    int userId;
+    Long userId;
 
     public User(String email, String password) {
         this.email = email;
@@ -30,7 +30,7 @@ public class User {
     public void setPassword(String password) {
         this.passwordHash = password;
     }
-    public void setUserId(int userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
     public String getPassword() {
@@ -40,7 +40,7 @@ public class User {
     public String getEmail() {
         return email;
     }
-    public int getUserId() {
+    public Long getUserId() {
         return userId;
     }
 }

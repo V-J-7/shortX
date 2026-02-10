@@ -13,6 +13,7 @@ import java.net.URI;
 
 @RestController
 public class RedirectController {
+
     private final ShortenerRepository shortenerRepository;
 
     public RedirectController(ShortenerRepository shortenerRepository) {
@@ -22,19 +23,17 @@ public class RedirectController {
     @GetMapping("/{shortCode}")
     public ResponseEntity<Void> redirectUser(@PathVariable String shortCode) {
 
+        // 1. Find the Shortener
         Shortener shortener = shortenerRepository.findByShortUrl(shortCode);
 
         if (shortener == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
-        String originalUrl = shortener.getOriginal();
+        shortenerRepository.incrementClicks(shortener.getId());
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(URI.create(originalUrl));
-
-        shortener.setClicks(shortener.getClicks() + 1);
-        shortenerRepository.save(shortener);
+        headers.setLocation(URI.create(shortener.getOriginal()));
 
         return new ResponseEntity<>(headers, HttpStatus.FOUND);
     }

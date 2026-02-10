@@ -5,6 +5,10 @@ import com.springboot.tinyurlspringboot.model.shortener.Shortener;
 import com.springboot.tinyurlspringboot.model.user.User;
 import com.springboot.tinyurlspringboot.repositories.ShortenerRepository;
 import com.springboot.tinyurlspringboot.repositories.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,15 +29,25 @@ public class DashboardController {
     }
 
     @PostMapping("/dashboard")
-    public ResponseEntity<List<ShortenerDTO>> dashboard(@RequestBody Map<String,String> map) {
-        String email=map.get("email");
-        User user=userRepository.findByEmail(email);
-        if (user==null) {
+    public ResponseEntity<List<ShortenerDTO>> dashboard(@RequestBody Map<String, Object> map) { // Changed Value to Object to handle Integers
+        String email = (String) map.get("email");
+
+        int page = map.containsKey("page") ? (int) map.get("page") : 0;
+        int size = map.containsKey("size") ? (int) map.get("size") : 10;
+
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        List<Shortener> list=shortenerRepository.findAllByUser(user);
-        List<ShortenerDTO> shorts=list.stream().map(s->new ShortenerDTO(s.getOriginal(),s.getShortUrl(),s.getUrlName(),s.getClicks())).toList();
-        if (list.isEmpty())return ResponseEntity.noContent().build();
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+
+        Page<Shortener> pageResult = shortenerRepository.findByUser(user, pageable);
+
+        List<ShortenerDTO> shorts = pageResult.stream()
+                .map(s -> new ShortenerDTO(s.getOriginal(), s.getShortUrl(), s.getUrlName(), s.getClicks()))
+                .toList();
+
         return ResponseEntity.ok(shorts);
     }
 }

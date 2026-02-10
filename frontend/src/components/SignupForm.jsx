@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Eye, EyeOff } from 'lucide-react'
 import PasswordValidator from './PasswordValidator.jsx'
 import '../styles/Authentication.css'
+import {useNavigate} from "react-router-dom";
 import {link} from "../BackendLink.jsx"
 
 function validEmail(email) {
@@ -17,6 +18,7 @@ const SignupForm = ({ onToggle }) => {
     const [signupMessage, setSignupMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate();
 
     const handleSignup = async (e) => {
         e.preventDefault()
@@ -94,6 +96,8 @@ const SignupForm = ({ onToggle }) => {
                 {isLoading ? "Creating Account..." : "Sign Up"}
             </button>
             <p className="status-msg">{signupMessage}</p>
+
+            { (signupMessage === "Registered Successfully") && navigate("/dashboard")}
 
             <div className="toggle-link">
                 Already have an account? <a onClick={onToggle}>Log in</a>

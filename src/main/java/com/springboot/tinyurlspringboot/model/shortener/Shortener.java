@@ -10,7 +10,6 @@ public class Shortener {
 
     @Id
     @Column(name="id")
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
     @Column(name="original",nullable = false,columnDefinition = "TEXT")
@@ -39,6 +38,7 @@ public class Shortener {
 
     }
 
+    public void setId(Long id) { this.id = id; }
     public void setOriginal(String original) {
         this.original = original;
     }
