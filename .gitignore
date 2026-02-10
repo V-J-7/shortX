@@ -3,7 +3,7 @@ target/
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 .gitignore
-test/*
+src/test/*
 
 ### STS ###
 .apt_generated
@@ -28,7 +28,6 @@ test/*
 /.nb-gradle/
 build/
 !**/src/main/**/build/
-!**/src/test/**/build/
 
 ### VS Code ###
 .vscode/
