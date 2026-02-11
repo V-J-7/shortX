@@ -26,7 +26,6 @@ public class ShortenerController {
     public ResponseEntity<String> shortener(@RequestBody Map<String,String> map) {
         String email = map.get("email");
         String original = map.get("original");
-        String shortURL = "";
         String urlName=map.get("urlName");
         if (!URLValidator.isValidURL(original)){
             return ResponseEntity.badRequest().body("Invalid URL");

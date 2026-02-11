@@ -23,7 +23,6 @@ public class RedirectController {
     @GetMapping("/{shortCode}")
     public ResponseEntity<Void> redirectUser(@PathVariable String shortCode) {
 
-        // 1. Find the Shortener
         Shortener shortener = shortenerRepository.findByShortUrl(shortCode);
 
         if (shortener == null) {

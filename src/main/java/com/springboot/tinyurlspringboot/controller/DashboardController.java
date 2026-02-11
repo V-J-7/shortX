@@ -29,7 +29,7 @@ public class DashboardController {
     }
 
     @PostMapping("/dashboard")
-    public ResponseEntity<List<ShortenerDTO>> dashboard(@RequestBody Map<String, Object> map) { // Changed Value to Object to handle Integers
+    public ResponseEntity<List<ShortenerDTO>> dashboard(@RequestBody Map<String, Object> map) {
         String email = (String) map.get("email");
 
         int page = map.containsKey("page") ? (int) map.get("page") : 0;
